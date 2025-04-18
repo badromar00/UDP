@@ -12,14 +12,20 @@ server_socket.bind((server_ip, server_port))  # Bind the socket to the IP and po
 
 print(f"Server is running on {server_ip}:{server_port}")  # Notify that the server is running
 
-while True:
-    # Wait to receive a message from a client
-    message, client_address = server_socket.recvfrom(buffer_size)
-    decoded_message = message.decode()  # Decode the received bytes to string
-    print(f"Message received from client: {decoded_message}")  # Print the received message
-    
-    # Send funny joke
-    response = f"{decoded_message} client, why do programmers prefer UDP over TCP? Because they hate handshakes!"
-    
-    # Send the response back to the client
-    server_socket.sendto(response.encode(), client_address)
+try:
+    while True:
+        # Wait to receive a message from a client
+        message, client_address = server_socket.recvfrom(buffer_size)
+        decoded_message = message.decode()  # Decode the received bytes to string
+        print(f"Message received from client: {decoded_message}")  # Print the received message
+        
+        # Send funny joke
+        response = f"{decoded_message} - Why do programmers prefer UDP over TCP? Because they hate handshakes!"
+        
+        # Send the response back to the client
+        server_socket.sendto(response.encode(), client_address)
+
+except KeyboardInterrupt:
+        # close the server socket
+        print("\nClosing server socket...")
+        server_socket.close()

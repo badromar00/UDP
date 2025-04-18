@@ -1,13 +1,21 @@
 # udp_client.py
 import socket
+import sys
+
+# check if the user provided a message argument
+if len(sys.argv) < 2:
+    print("Error: Please enter a message.")
+    sys.exit(1)
+
+# get the message from the command-line argument
+message = sys.argv[1]
 
 # Set up the client
 server_ip = "127.0.0.1"
 server_port = 12345
 buffer_size = 1024
-message = "Hello"
 
-# Create UDP socket
+# Create UDP socket 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Send message to server
